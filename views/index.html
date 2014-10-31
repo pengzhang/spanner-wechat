@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+<head>
+
+
+    <title>卡车帮</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="stylesheet" type="text/css" href="/jq_mobile/css/icons.css"/>
+
+    <!--
+  <link rel="stylesheet" type="text/css" href="/jq_mobile/css/af.ui.css" title="default" />
+-->
+    <link rel="stylesheet" type="text/css" href="/jq_mobile/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/jq_mobile/css/appframework.css"/>
+    <link rel="stylesheet" type="text/css" href="/jq_mobile/css/lists.css"/>
+    <link rel="stylesheet" type="text/css" href="/jq_mobile/css/forms.css"/>
+    <link rel="stylesheet" type="text/css" href="/jq_mobile/css/buttons.css"/>
+    <link rel="stylesheet" type="text/css" href="/jq_mobile/css/badges.css"/>
+    <link rel="stylesheet" type="text/css" href="/jq_mobile/css/grid.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/jq_mobile/css/android.css"/>
+    <link rel="stylesheet" type="text/css" href="/jq_mobile/css/win8.css"/>
+    <link rel="stylesheet" type="text/css" href="/jq_mobile/css/bb.css"/>
+    <link rel="stylesheet" type="text/css" href="/jq_mobile/css/ios.css"/>
+    <link rel="stylesheet" type="text/css" href="/jq_mobile/css/ios7.css"/>
+    <link rel="stylesheet" type="text/css" href="/jq_mobile/css/tizen.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/jq_mobile/plugins/css/af.actionsheet.css"/>
+    <link rel="stylesheet" type="text/css" href="/jq_mobile/plugins/css/af.popup.css"/>
+    <link rel="stylesheet" type="text/css" href="/jq_mobile/plugins/css/af.scroller.css"/>
+    <link rel="stylesheet" type="text/css" href="/jq_mobile/plugins/css/af.selectBox.css"/>
+
+    <!-- uncomment for intel.xdk apps
+    <script type="text/javascript" charset="utf-8" src="intelxdk.js"></script>
+    <script type="text/javascript" charset="utf-8" src="xhr.js"></script>
+    -->
+    <script type="text/javascript" charset="utf-8" src="/jq_mobile/appframework.js"></script>
+    <!-- include af.desktopBrowsers.js on desktop browsers only -->
+    <script>
+
+
+        if (!((window.DocumentTouch && document instanceof DocumentTouch) || 'ontouchstart' in window)) {
+            var script = document.createElement("script");
+            script.src = "/jq_mobile/plugins/af.desktopBrowsers.js";
+            var tag = $("head").append(script);
+            //$.os.desktop=true;
+        }
+
+        //  $.feat.nativeTouchScroll=true;
+
+    </script>
+    <script type="text/javascript" charset="utf-8" src="/jq_mobile/plugins/af.actionsheet.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/jq_mobile/plugins/af.css3animate.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/jq_mobile/plugins/af.passwordBox.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/jq_mobile/plugins/af.scroller.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/jq_mobile/plugins/af.selectBox.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/jq_mobile/plugins/af.touchEvents.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/jq_mobile/plugins/af.touchLayer.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/jq_mobile/plugins/af.popup.js"></script>
+
+    <script type="text/javascript" charset="utf-8" src="/jq_mobile/ui/appframework.ui.js"></script>
+    <!-- <script type="text/javascript" charset="utf-8" src="/jq_mobile/ui/transitions/all.js"></script> -->
+    <script type="text/javascript" charset="utf-8" src="/jq_mobile/ui/transitions/fade.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/jq_mobile/ui/transitions/flip.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/jq_mobile/ui/transitions/pop.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/jq_mobile/ui/transitions/slide.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/jq_mobile/ui/transitions/slideDown.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/jq_mobile/ui/transitions/slideUp.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/jq_mobile/plugins/af.slidemenu.js"></script>
+
+
+    <script type="text/javascript">
+        $.ui.useOSThemes=false;
+        $(document).ready(function () {
+            $("#get_position").click(function () {
+                getLocation()
+            })
+
+        });
+
+        function getLocation() {
+
+            if (navigator.geolocation) {
+
+                navigator.geolocation.getCurrentPosition(
+                        showPosition,//成功回调函数
+
+                        getPositionError,//失败回调函数
+
+                        {//options参数配置
+
+                            enableHighAccuracy: true,//boolean 是否要求高精度的地理信息
+
+                            timeout: 2000,
+
+                            maximumAge: 36000
+
+                        }
+                );
+
+            }
+
+            else {  //不支持，就拉倒吧。
+            }
+
+        }
+
+
+        function getPositionError(error) {
+
+            switch (error.code) {
+
+                case error.TIMEOUT:
+
+                    //  alert("连接超时，请重试");
+
+                    break;
+
+                case error.PERMISSION_DENIED:
+
+                    //alert("您拒绝了使用位置共享服务，查询已取消");
+
+                    break;
+
+                case error.POSITION_UNAVAILABLE:
+
+                    //alert("亲爱的火星网友，非常抱歉，我们暂时无法为您所在的星球提供位置服务");
+
+                    break;
+
+            }
+
+        }
+
+        function showPosition(position) {
+
+            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
+
+            var opts={
+                type:"GET",
+                success:function(data){ $("#position").val(data)},
+                url:"/map-location?location="+lat+","+lng
+            }
+            $.ajax(opts);
+
+
+        }
+
+
+    </script>
+
+</head>
+
+<body>
+<div id="afui">
+    <!-- this is the splashscreen you see. -->
+    <div id="splashscreen" class='ui-loader heavy'>
+        卡车帮
+        <br>
+        <br> <span class='ui-icon ui-icon-loading spin'></span>
+
+        <h1>应用启动中...</h1>
+
+    </div>
+
+    <div id="content">
+        <div id="afforms" title="卡车帮" class="panel">
+            <div class="formGroupHead">维修站信息</div>
+            <form>
+                <div class="input-group">
+                    <input type="text" placeholder="名称">
+                    <input type="text" id="position" placeholder="所在地区"><input id="get_position" class="button"
+                                                                               type="button" value="获取当前位置">
+                    <input type="text" placeholder="详细地址">
+                    <input type="text" placeholder="地图坐标">
+                    <input type="text" placeholder="固定电话">
+                    <input type="text" placeholder="维修站照片">
+                    <input type="text" placeholder="三包范围">
+                </div>
+            </form>
+
+            <div class="formGroupHead">其他信息(完善信息将有可能被司机发现)</div>
+            <form>
+                <div class="input-group">
+                    <input type="text" placeholder="联系人1">
+                    <input type="text" placeholder="手机1">
+                    <input type="text" placeholder="联系人2">
+                    <input type="text" placeholder="手机2">
+                    <label>配套服务:<br>(可多选)</label>
+                    <input id="aaaaa" type="checkbox" value="1" name="test2">
+                    <label class="" for="aaaaa">拖车救援</label>
+                    <input id="bbbbb" type="checkbox" value="2" name="test2">
+                    <label for="bbbbb">停车</label>
+                    <input id="ccccdc" type="checkbox" value="3" name="test2">
+                    <label class="" for="ccccc">维修期住宿 </label>
+                    <input id="ccccc" type="checkbox" value="3" name="test2">
+                    <label class="" for="ccccc">餐饮 </label>
+
+                </div>
+            </form>
+
+            <input class="button" type="submit" value="入驻卡车帮">
+            <br>
+        </div>
+
+
+    </div>
+
+</div>
+
+</body>
+</html>
