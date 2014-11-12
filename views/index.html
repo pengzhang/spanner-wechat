@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
     <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+    <script src="/javascripts/location.js"></script>
+    <script src="/javascripts/pic_show.js"></script>
 </head>
 <body>
 <div data-role="page" id="pageone">
@@ -19,95 +21,97 @@
     </div>
 
     <div data-role="content">
-        <form method="get" action="">
+        <form method="post" action="/lng_register">
 
             <div data-role="fieldcontain">
-                <label for="name">*名称</label>
-                <input type="text" name="text" id="name" value="" placeholder="加气站名称">
+                <label for="lng_name">*名称</label>
+                <input type="text" name="lng_name" id="lng_name" value="" placeholder="加气站名称">
             </div>
 
             <div data-role="fieldcontain">
-                <label for="name">* 所在地区</label>
-                <input type="text" name="text" id="name" value="" placeholder="点击右侧图标自动获取位置和坐标">
+                <label for="district">* 所在地区</label>
+                <input type="text" name="district" id="district" value="" placeholder="点击右侧图标自动获取位置和坐标">
+                <a href="#" id="get_position" data-role="button" data-inline="true" data-mini="true">定位</a>
+
             </div>
 
             <div data-role="fieldcontain">
-                <label for="name">*详细地址</label>
-                <input type="text" name="text" id="name" value="" placeholder="请填写详细的地址及指引信息">
+                <label for="address">*详细地址</label>
+                <input type="text" name="address" id="address" value="" placeholder="请填写详细的地址及指引信息">
             </div>
 
             <div data-role="fieldcontain">
-                <label for="name">*地图坐标</label>
-                <input type="text" name="text" id="name" value="" placeholder="用于导航至您的维修站">
+                <label for="coords">*地图坐标</label>
+                <input type="text" name="coords" id="coords" value="" placeholder="用于导航至您的维修站">
             </div>
 
             <div data-role="fieldcontain">
-                <label for="name">联系电话</label>
-                <input type="text" name="text" id="name" value="" placeholder="请输入您的联系电话">
+                <label for="mobile">联系电话</label>
+                <input type="text" name="mobile" id="mobile" value="" placeholder="请输入您的联系电话">
             </div>
 
             <div data-role="fieldcontain">
-                <label for="name">加气站照片(大小不超过5M)</label>
-                <input type="file" name="text" id="name" value="" placeholder="">
+                <label for="uploadpic">加气站照片(大小不超过5M)</label>
+                <img id="pic_show0" name="pic_show0" width="150" height="150" style="display: none;">
+                <img id="uploadpic" src="/images/uploadpic.png" width="150" height="150">
+            </div>
+            <div data-role="fieldcontain" style="display: none;">
+                <input type="file" name="pic0" id="pic0" onchange="readURL(this, 'pic_show0');" >
+                <input type="hidden" id="pic_num" value="0">
+            </div>
+            <div data-role="fieldcontain">
+                <label for="linker">联系人</label>
+                <input type="text" name="linker" id="linker" value="" placeholder="">
             </div>
 
             <div data-role="fieldcontain">
-                <label for="name">联系人</label>
-                <input type="text" name="text" id="name" value="" placeholder="">
+                <label for="linker_mobile">手机</label>
+                <input type="text" name="linker_mobile" id="linker_mobile" value="" placeholder="">
             </div>
 
             <div data-role="fieldcontain">
-                <label for="name">手机</label>
-                <input type="text" name="text" id="name" value="" placeholder="">
+                <label for="referee">推荐人</label>
+                <input type="text" name="referee" id="referee" value="" placeholder="">
             </div>
 
             <div data-role="fieldcontain">
-                <label for="name">推荐人</label>
-                <input type="text" name="text" id="name" value="" placeholder="">
-            </div>
-
-            <div data-role="fieldcontain">
-                <label for="name">手机</label>
-                <input type="text" name="text" id="name" value="" placeholder="">
+                <label for="referee_moible">手机</label>
+                <input type="text" name="referee_moible" id="referee_moible" value="" placeholder="">
             </div>
 
             <div data-role="fieldcontain">
                 <fieldset data-role="controlgroup" data-type="horizontal">
                     <legend>是否接受刷卡：</legend>
-                    <label for="male">是</label>
-                    <input type="radio" name="gender" id="male" value="male">
-                    <label for="female">否</label>
-                    <input type="radio" name="gender" id="female" value="female">
+                    <label for="swiping_yes">是</label>
+                    <input type="radio" name="swiping" id="swiping_yes" value="是">
+                    <label for="swiping_no">否</label>
+                    <input type="radio" name="swiping" id="swiping_no" value="否">
                 </fieldset>
             </div>
 
             <div data-role="fieldcontain">
                 <div data-role="controlgroup">
                     <legend>配套设施</legend>
-                    <label for="mov1">蜘蛛侠</label>
-                    <input type="checkbox" name="mov1" id="mov1"/>
-                    <label for="mov2">变形金刚</label>
-                    <input type="checkbox" name="mov2" id="mov2"/>
-                    <label for="mov3">碟中谍</label>
-                    <input type="checkbox" name="mov3" id="mov3"/>
+                    <label for="facilities1">便利店</label>
+                    <input type="checkbox" name="facilities" id="facilities1" value="便利店"/>
+                    <label for="facilities2">厕所</label>
+                    <input type="checkbox" name="facilities" id="facilities2"  value="厕所"/>
                 </div>
             </div>
 
             <div data-role="fieldcontain">
-                <label for="colors">加气站类型</label>
-                <select id="colors" name="colors">
-                    <option value="red">红色</option>
-                    <option value="green">绿色</option>
-                    <option value="blue">蓝色</option>
+                <label for="lng_type">加气站类型</label>
+                <select id="lng_type" name="lng_type">
+                    <option value="1">天然气</option>
+                    <option value="2">石油气</option>
                 </select>
             </div>
 
             <div data-role="fieldcontain">
-                <label for="colors">请选择加气站的业主(投资方)</label>
-                <select id="colors" name="colors">
-                    <option value="red">红色</option>
-                    <option value="green">绿色</option>
-                    <option value="blue">蓝色</option>
+                <label for="investors">请选择加气站的业主(投资方)</label>
+                <select id="investors" name="investors">
+                    <option value="1">中国石油</option>
+                    <option value="2">中国石化</option>
                 </select>
             </div>
             <div data-role="content">

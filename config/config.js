@@ -80,6 +80,15 @@ module.exports= {
                 ]
             }
         ]
+    },
+    pg:{
+        "database":"small",
+        "username":"small",
+        "password":"small",
+        "server":"123.57.44.88"
+    },
+    soso_map:{
+        "key":"C26BZ-OLJWV-KQJPS-ULFNN-7NN4Q-VEBAO"
     }
 
 
