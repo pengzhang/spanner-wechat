@@ -11,7 +11,13 @@ function get_address(location,callback){
         if(err){
             console.log(err)
         }
-        callback(JSON.parse(body).result.address);
+        console.log(JSON.parse(body).result);
+        callback(
+            JSON.parse(body).result.address,
+            JSON.parse(body).result.address_component.province,
+            JSON.parse(body).result.address_component.city,
+            JSON.parse(body).result.address_component.district
+        );
     })
 }
 

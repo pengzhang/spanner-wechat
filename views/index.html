@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
     <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+    <script src="/javascripts/location.js"></script>
+    <script src="/javascripts/pic_show.js"></script>
 </head>
 <body>
 <div data-role="page" id="pageone">
@@ -28,17 +30,19 @@
 
             <div data-role="fieldcontain">
                 <label for="name">* 所在地区</label>
-                <input type="text" name="text" id="name" value="" placeholder="点击右侧图标自动获取位置和坐标">
+                <input type="text" name="text" id="district"  value="" placeholder="点击右侧图标自动获取位置和坐标">
+                <a href="#" id="get_position" data-role="button" data-inline="true" data-mini="true">定位</a>
+
             </div>
 
             <div data-role="fieldcontain">
                 <label for="name">*详细地址</label>
-                <input type="text" name="text" id="name" value="" placeholder="请填写详细的地址及指引信息">
+                <input type="text" name="text" id="address" value="" placeholder="请填写详细的地址及指引信息">
             </div>
 
             <div data-role="fieldcontain">
                 <label for="name">*地图坐标</label>
-                <input type="text" name="text" id="name" value="" placeholder="用于导航至您的维修站">
+                <input type="text" name="text" id="coords" value="" placeholder="用于导航至您的维修站">
             </div>
 
             <div data-role="fieldcontain">
@@ -48,9 +52,11 @@
 
             <div data-role="fieldcontain">
                 <label for="name">加气站照片(大小不超过5M)</label>
-                <input type="text" name="text" id="name" value="" placeholder="你的姓名是？">
+                <img id="pic_show0" name="pic_show0" width="150" height="150" style="display: none;">
+                <img id="uploadpic" src="/images/uploadpic.png" width="150" height="150">
             </div>
-
+            <input type="file" name="pic0" id="pic0" onchange="readURL(this, 'pic_show0');" style="display: none;">
+            <input type="hidden" id="pic_num" value="0">
             <div data-role="fieldcontain">
                 <label for="name">联系人</label>
                 <input type="text" name="text" id="name" value="" placeholder="">
@@ -72,7 +78,7 @@
             </div>
 
             <div data-role="fieldcontain">
-                <fieldset data-role="controlgroup">
+                <fieldset data-role="controlgroup" data-type="horizontal">
                     <legend>是否接受刷卡：</legend>
                     <label for="male">是</label>
                     <input type="radio" name="gender" id="male" value="male">

@@ -10,6 +10,10 @@ router.get('/', function(req, res) {
   res.render('index');
 });
 
+router.get('/pic', function(req, res) {
+    res.render('pic');
+});
+
 router.get('/init', function(req, res) {
 
     fs.exists('./init_lock',function(exists){
@@ -37,8 +41,8 @@ router.get('/init', function(req, res) {
  */
 router.get('/map-location', function(req, res) {
 
-    map_location.get_address(req.query.location,function(data){
-        res.send(data);
+    map_location.get_address(req.query.location,function(addr,province,city,district){
+        res.send(addr+','+province+','+city+','+district);
     })
 
 });
