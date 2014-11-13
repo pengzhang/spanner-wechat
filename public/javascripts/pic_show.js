@@ -28,19 +28,19 @@ function uploadFile(file){
 
 function readURL(input, fileName) {
     var filevalue = input.value;
-    var extend = filevalue.substring(filevalue.lastIndexOf(".")+1);
-
-    if(extend==""){
-    }else{
-
-        if(!(extend=="png"||extend=="jpg" || extend=="gif")){
-            alert("请上传后缀名为png或jpg或gif的文件!");
-            var nf = obj.clonenode(true);
-            nf.value='';
-            obj.parentnode.replacechild(nf, obj);
-            return false;
-        }
-    }
+//    var extend = filevalue.substring(filevalue.lastIndexOf(".")+1);
+//
+//    if(extend==""){
+//    }else{
+//
+//        if(!(extend=="png"||extend=="jpg" || extend=="gif")){
+//            alert("请上传后缀名为png或jpg或gif的文件!");
+//            var nf = obj.clonenode(true);
+//            nf.value='';
+//            obj.parentnode.replacechild(nf, obj);
+//            return false;
+//        }
+//    }
 
     if (input.files && input.files[0]) {
 

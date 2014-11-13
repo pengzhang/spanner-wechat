@@ -4,19 +4,39 @@ var fs = require('fs');
 
 var menu = require('../service/menu_service.js')
 var map_location = require('../service/map_location_service.js')
-var pg_client = require('../service/postgres.js')
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+
+var pg = require('pg');
+var config = require('../config/config.js');
+var qn = require('qn');
+
 
 /* GET home page. */
 router.get('/', function (req, res) {
     res.render('index');
 });
 
-router.post('/lng_register', function (req, res) {
+router.post('/lng_register', multipartMiddleware, function (req, res) {
     console.log(req.body)
-    var sql = 'insert into lng_register (lng_name,district,address,coords,mobile,linker,linker_mobile,referee,referee_moible,swiping,facilities,lng_type,investors) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)'
-    pg_client.query(sql, [req.body.lng_name, req.body.district, req.body.address, req.body.coords, req.body.mobile, req.body.linker, req.body.linker_mobile, req.body.referee, req.body.referee_moible, req.body.swiping, req.body.facilities, req.body.lng_type, req.body.investors]);
+    console.log(req.files.pic0.path)
 
-    res.send('dfasfdafdafdafdasfads');
+    var qn_client = qn.create({
+        accessKey: 'ayT8wRpjb09c68rDU-dcIuo0zrzlFOePIoM4X249',
+        secretKey: 'Wza81AUMwGxJT1ASZGuHPOYLpUgxa7x7eSCuy9gU',
+        bucket: 'spanner',
+        domain: 'http://spanner.qiniudn.com'
+    });
+    qn_client.upload(fs.createReadStream(req.files.pic0.path), function (err, result) {
+        console.log(result);
+        var conString = "postgres://" + config.pg.username + ":" + config.pg.password + "@" + config.pg.server + "/" + config.pg.database;
+        var pg_client = new pg.Client(conString);
+        pg_client.connect();
+        var sql = 'insert into lng_register (lng_name,district,address,coords,mobile,pic,linker,linker_mobile,referee,referee_mobile,swiping,facilities,lng_type,investors) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)'
+        pg_client.query(sql, [req.body.lng_name, req.body.district, req.body.address, req.body.coords, req.body.mobile, result.url, req.body.linker, req.body.linker_mobile, req.body.referee, req.body.referee_moible, req.body.swiping, req.body.facilities, req.body.lng_type, req.body.investors]);
+    });
+
+    res.render('ok');
 });
 
 router.get('/init', function (req, res) {

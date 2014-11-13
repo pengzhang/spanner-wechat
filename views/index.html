@@ -9,10 +9,13 @@
     <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+    <link rel="stylesheet" href="/stylesheets/webuploader.css">
     <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
     <script src="/javascripts/location.js"></script>
     <script src="/javascripts/pic_show.js"></script>
+    <script src="/javascripts/webuploader.min.js"></script>
+    <script src="/javascripts/validate.js"></script>
 </head>
 <body>
 <div data-role="page" id="pageone">
@@ -21,7 +24,7 @@
     </div>
 
     <div data-role="content">
-        <form method="post" action="/lng_register">
+        <form method="post" action="/lng_register" enctype="multipart/form-data" data-ajax="false">
 
             <div data-role="fieldcontain">
                 <label for="lng_name">*名称</label>
@@ -56,9 +59,10 @@
                 <img id="uploadpic" src="/images/uploadpic.png" width="150" height="150">
                 <input type="hidden" id="pic" name="pic" value="0">
             </div>
+
             <div data-role="fieldcontain" style="display: none;">
                 <input type="file" name="pic0" id="pic0" onchange="readURL(this, 'pic_show0');" >
-                <input type="hidden" id="pic_num" value="0">
+                <input type="hidden" name="pic_num" id="pic_num" value="0">
             </div>
             <div data-role="fieldcontain">
                 <label for="linker">联系人</label>
@@ -116,7 +120,7 @@
                 </select>
             </div>
             <div data-role="content">
-                <input type="submit" value="提交">
+                <input type="submit" id="ok_btn" value="入驻卡车帮">
             </div>
         </form>
     </div>
